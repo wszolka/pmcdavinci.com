@@ -2,7 +2,7 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import globalSettings from '@config/config.json.ts';
 import { getSortedPosts } from "@utils/utils.js";
-import FeaturedPosts from "@components/FeaturedPosts.astro";
+import { getEntry } from "astro:content";
 import Slider from "@components/Slider.astro";
 import Circles from "@components/Circles.astro";
 import BigArrowIcon from "@assets/icons/BigArrowIcon.astro";
@@ -13,21 +13,18 @@ import FooterNormal from "@components/FooterNormal.astro";
 import Pagination from "@components/Pagination.astro";
 import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.astro";
 
-const { posts: featured_posts } = await getSortedPosts({featured: true});
+const applied_innovation_post = await getEntry("blog", "applied-innovation");
 const { posts: slider_posts, total_posts: total_slider_posts } = await getSortedPosts({homepage_slider: true, limit: 8});
 const { posts, total_posts } = await getSortedPosts({limit: globalSettings.pagination_posts_number});
 const { posts: creative_posts } = await getSortedPosts({limit: 10});
-const first_post = posts[0];
 
 const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
   .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
 ---
 
 <BaseLayout globalSettings={globalSettings} t={t}>
-  <main>
-    <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={first_post}/>
-
-    <FeaturedPosts t={t} show_featured_post_preview={globalSettings.show_featured_post_preview} posts={featured_posts}/>
+  <main>  
+    <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={applied_innovation_post} hide_post_links={true}/>
 
     {total_slider_posts > 0 && (
       <div class="subtitle-wrapper subtitle-with-margin no-top">

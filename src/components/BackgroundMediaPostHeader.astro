@@ -17,7 +17,8 @@ const {
     button_style = globalSettings.button_style_on_background_media,
     post,
     is_for_end_page = false,
-    minutes_read
+    minutes_read,
+    hide_post_links = false
 } = Astro.props as BackgroundMediaPostHeaderProps;
 
 const tags = (post.data.tags || [])
@@ -71,6 +72,14 @@ const feature_video = feature_video_item ? (feature_video_item[1] as any).defaul
 
                             <PostAuthors post={post} minutes_read={minutes_read}/>
                         </div>
+                    ) : hide_post_links ? (
+                        <div class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={content_length}>
+                            <h1>{post.data.title}</h1>
+                        </div>
+
+                        <div class:list={['post-summary-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                            <p class="paragraph overlay">{post.data.excerpt}</p>
+                        </div>
                     ) : (
                         <a href={`/blog/${post.id}`} class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={content_length}>
                             <h1>{post.data.title}</h1>
@@ -82,7 +91,7 @@ const feature_video = feature_video_item ? (feature_video_item[1] as any).defaul
                     )}
                 </div>
                 
-                {is_for_end_page ? (
+                {(is_for_end_page || hide_post_links) ? (
                     <></>
                 ) : (
                     <div class:list={['', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>

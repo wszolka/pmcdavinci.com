@@ -187,7 +187,8 @@ export interface BackgroundMediaPostHeaderProps {
     button_style?: ButtonStyle,
     post: CollectionEntry<"blog">,
     is_for_end_page?: boolean,
-    minutes_read?: string
+    minutes_read?: string,
+    hide_post_links?: boolean
 }
 
 export interface DefaultPostHeaderProps {
