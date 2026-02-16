@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import globalSettings from '@config/config.json.ts';
-import { getSortedPosts } from "@utils/utils.js";
 import { getEntry } from "astro:content";
 import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.astro";
-import InlinePost from "@components/InlinePost.astro";
+import { Image } from "astro:assets";
+import "@styles/post.css";
+import "@styles/post-content.css";
+import sideImage from "@assets/images/kas.jpg";
 
 const applied_innovation_post = await getEntry("blog", "applied-innovation");
-const organizations_rarely_lack_ideas_post = await getEntry("blog", "organizations-rarely-lack-ideas");
 
 const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
   .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
@@ -17,7 +18,126 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
   <main>  
     <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={applied_innovation_post} hide_post_links={true} content_length="Full Width"/>
 
-    <InlinePost post={organizations_rarely_lack_ideas_post} />
+    <article class="article" data-is-post="true" data-has-header="false">
+      <div class="post-content narrow-container">
+        <div class="post-content-inner-wrapper">
+          <div class="post-content-inner">
+            <br/>
+            <br/>
+
+            <blockquote class="blockquote-alt">
+              Innovation is valuable only when it is applied.<br/>
+              Creativity is not a talent of a few - it is a capability that can be developed in everyone.
+            </blockquote>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <blockquote>
+              Organizations rarely lack ideas
+              They lack environments where ideas can survive reality.
+            </blockquote>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <blockquote class="blockquote-alt">
+              Organizations naturally optimize around what they already know.
+              Innovation often begins when new perspectives enter the system.
+            </blockquote>
+
+            <br/>
+            <br/>
+
+            <div class="image-text-row">
+              <div class="image-side">
+                <Image src={sideImage} alt="Katarzyna Wszoła" format="jpg" widths={[200, 400, 600, 800]} sizes="(max-width: 768px) 100vw, 50vw" />
+              </div>
+              <div class="text-side">
+                <h2>Katarzyna Wszoła</h2>
+                <p>I bring international innovation practice into organizations and translate it into applied innovation - strengthening how they operate, adapt, and grow.
+                  My perspective comes from leading and implementing innovation from within organizations - staying close to operational reality rather than observing it from outside.
+                  An external innovation director bringing global perspective into operational systems.
+                  </p>
+              </div>
+            </div>  
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <h1>How I work with organizations?</h1>
+            <p>
+              I work alongside leadership teams and operational structures to help organizations:
+              <ul>
+              <li>make innovation executable within existing systems,</li>
+              <li>connect strategy with everyday decision-making,</li>
+              <li>enable teams to operate differently without disrupting performance,</li>
+              <li>move from experimentation to implementation.</li>
+              </ul>
+              Sometimes this means designing programmes.
+              Sometimes leading transformation initiatives.
+              Sometimes stepping into interim leadership roles.
+              <br/><br/>
+              <h4>Always — working close to operational reality and pragmatism.</h4>
+            </p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <h1>Contact</h1>
+            <p>
+            Let’s do something creative<br/>
+            <a href="mailto:kwszola@pmcdavinci.com">kwszola@pmcdavinci.com</a>
+            </p>
+          </div>        
+        </div>
+      </div>
+    </article>
+
 
   </main>
 </BaseLayout>
+
+<style>
+  .image-text-section {
+    padding-top: max(40px, 2.8vw);
+    padding-bottom: max(40px, 2.8vw);
+  }
+
+  .image-text-row {
+    display: flex;
+    align-items: center;
+    gap: max(32px, 2.2vw);
+  }
+
+  .image-side {
+    flex: 1;
+  }
+
+  .image-side img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .text-side {
+    flex: 1;
+  }
+
+  .text-side h2 {
+    margin-bottom: max(16px, 1.1vw);
+  }
+
+  @media (max-width: 768px) {
+    .image-text-row {
+      flex-direction: column;
+    }
+  }
+</style>
