@@ -62,7 +62,7 @@ const feature_video = feature_video_item ? (feature_video_item[1] as any).defaul
 
                     {is_for_end_page ? (
                         <div class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={content_length}>
-                            <h1>{post.data.title}</h1>
+                            <h1 set:html={post.data.title} />
                         </div>
 
                         <div class:list={['excerpt-and-authors', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
@@ -74,7 +74,7 @@ const feature_video = feature_video_item ? (feature_video_item[1] as any).defaul
                         </div>
                     ) : hide_post_links ? (
                         <div class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={content_length}>
-                            <h1>{post.data.title}</h1>
+                            <h1 set:html={post.data.title} />
                         </div>
 
                         <div class:list={['post-summary-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
@@ -82,7 +82,7 @@ const feature_video = feature_video_item ? (feature_video_item[1] as any).defaul
                         </div>
                     ) : (
                         <a href={`/blog/${post.id}`} class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={content_length}>
-                            <h1>{post.data.title}</h1>
+                            <h1 set:html={post.data.title} />
                         </a>
 
                         <div class:list={['post-summary-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
