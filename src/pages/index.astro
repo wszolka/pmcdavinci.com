@@ -8,7 +8,7 @@ import "@styles/post.css";
 import "@styles/post-content.css";
 import sideImage from "@assets/images/kas.jpg";
 
-const applied_innovation_post = await getEntry("blog", "applied-innovation");
+const header_post = await getEntry("blog", "header");
 
 const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
   .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
@@ -16,7 +16,7 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
 
 <BaseLayout globalSettings={globalSettings} t={t}>
   <main>  
-    <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={applied_innovation_post} hide_post_links={true} content_length="Full Width"/>
+    <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={header_post} hide_post_links={true} content_length="Full Width"/>
 
     <article class="article" data-is-post="true" data-has-header="false">
       <div class="post-content narrow-container">
