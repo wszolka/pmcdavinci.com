@@ -18,7 +18,7 @@ const navbarSettings: Navbar[] = [
 	},
 	{
 		text: "About",
-		link: "#about",
+		link: "/about",
 	},
 	{
 		text: "Why work together",

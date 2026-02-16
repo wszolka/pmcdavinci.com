@@ -1,0 +1,89 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import globalSettings from '@config/config.json.ts';
+import { Image } from "astro:assets";
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+
+import "@styles/hero-section.css";
+import "@styles/post.css";
+import "@styles/post-content.css";
+
+// ---- Page parameters ----
+const title = "Katarzyna Wszoła";
+const excerpt = "Creative Executive Innovation Partner<br/>Facilitator of Organizational Translation";
+import featureImage from "@assets/images/kas2.jpg";
+// -------------------------
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title="About" description={excerpt}>
+  <main>
+    <section class="background-media hero-section">
+      <div class="wide-container">
+        <div class="hero-content">
+          <div class="hero-content-inner">
+            <div class="hero-text-content">
+              <div class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length="Full Width">
+                <h1 set:html={title} />
+              </div>
+              <div class:list={['post-summary-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                <p class="paragraph overlay" set:html={excerpt} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class:list={['background-image', { 'image-animation': globalSettings.use_page_load_animations }]}>
+        <figure class="parallax-image">
+          <Image
+            src={featureImage}
+            alt="About"
+            loading="lazy"
+            format="webp"
+            widths={[300, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4200]}
+            sizes="100vw"
+          />
+        </figure>
+        <div class="dark-overlay"></div>
+      </div>
+    </section>
+
+    <article class="article" data-is-post="true" data-has-header="true">
+      <div class="post-content narrow-container">
+        <div class="post-content-inner-wrapper">
+          <div class="post-content-inner">
+
+            <h2>Katarzyna Wszoła</h2>
+            <p><strong>Creative Executive Innovation Partner</strong><br/>
+            <strong>Facilitator of Organizational Translation</strong></p><br/>
+            <p>14+ years in applied innovation leadership across corporate, academic, and innovation ecosystems.</p>
+            <p>I work at the intersection of corporate environments, consulting practice, universities, and startup ecosystems - connecting perspectives that rarely meet inside organizations.</p>
+            <p>Over more than a decade in innovation leadership, including director-level roles at regional and group levels, I have led and implemented innovation from within complex organizational structures. This experience shaped a core belief: innovation succeeds only when new thinking becomes operational reality.</p>
+            <p>International programmes and cross-sector collaboration expanded this perspective further, exposing diverse organizational models, decision cultures, and approaches to innovation across industries and markets. These experiences allow me to bring external intelligence into organizations while remaining grounded in their operational context.</p>
+            <p>My work focuses on translating international innovation practice into <strong>applied innovation</strong> - strengthening how organizations operate, adapt, and grow over time.</p>
+            <p>A significant part of this work happens between perspectives. Through facilitation understood as organizational translation, I help leadership teams and operational structures align around shared understanding - connecting strategy with execution, creativity with accountability, and global insight with local reality.</p>
+            <p>The objective is not innovation as an initiative, but innovation as capability embedded in systems, collaboration, and decision-making.</p>
+            <br/>
+            <br/>
+            <blockquote>
+              Innovation becomes meaningful when organizations learn not only what to change - but how to operate differently.
+            </blockquote>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  {globalSettings.footer_type == "Creative" ? (
+    <FooterCreative t={t} globalSettings={globalSettings}/>
+  ) : (
+    <FooterNormal t={t} globalSettings={globalSettings}/>
+  )}
+</BaseLayout>
