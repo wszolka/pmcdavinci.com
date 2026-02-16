@@ -10,7 +10,7 @@ import type { Navbar } from "@src-types/types.ts";
 const navbarSettings: Navbar[] = [
 	{
 		text: "Applied Innovation",
-		link: "#applied-innovation"
+		link: "/blog/applied-innovation"
 	},
 	{
 		text: "International Work",

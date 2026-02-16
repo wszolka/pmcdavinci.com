@@ -1,9 +1,9 @@
 import type { GlobalSettingsProps } from "@src-types/types.ts";
 
 const globalSettings: GlobalSettingsProps = {
-    site_name: "PMC",
-    site_meta_title: "PMC",
-    site_meta_description: "Snook is a bold and creative Astro theme designed for those who dare to stand out. With its striking design, Snook helps you break away from the ordinary.",
+    site_name: "PMC DA VINCI",
+    site_meta_title: "PMC DA VINCI",
+    site_meta_description: "PMC - Project Management Center represents operational execution: the discipline required to move from ideas to implementation.",
     site_meta_image_source: "/images/kusa-projects-logo.jpg",
     twitter_username: "@Your_Username",
     language: "en", // Default language and static texts file (en.json)
@@ -30,7 +30,7 @@ const globalSettings: GlobalSettingsProps = {
     show_post_card_extra_info: false, // Shows post author and date
     show_featured_post_preview: false, // Show a featured post preview on mobile devices, or navigate directly to the featured post on the first click
     homepage_post_card_style: "Creative", // "Default" | "Creative" -> Post card style for latest posts on homepage
-    footer_type: "Creative", // "Creative" | "Normal"
+    footer_type: "Normal", // "Creative" | "Normal"
     post_template: "Right Aligned", // "Right Aligned" | "Default"
     post_header_type: "Wide" // "Wide" | "Wide Centered" | "Narrow" | "Narrow Centered" | "Background Media" | "Background Media Centered" -> Narrow and Narrow Centered options only work on Default post template
 }
