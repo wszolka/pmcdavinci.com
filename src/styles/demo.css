@@ -1,0 +1,195 @@
+.demo-buttons-container {
+    position: fixed;
+    bottom: max(26px, 1.8vw);
+    right: max(26px, 1.8vw);
+    display: flex;
+    gap: max(12px, 0.83vw);
+    z-index: 10;
+}
+
+.demo-button {
+    width: max(43px, 2.99vw);
+    height: max(43px, 2.99vw);
+    border-radius: 100%;
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+}
+
+.demo-button-inner {
+    width: max(21px, 1.46vw);
+    height: max(21px, 1.46vw);
+}
+
+.settings-sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 104;
+    transform: translateY(-50%) translateX(100%);
+    background-color: var(--background-color);
+    border-top: 1px solid var(--text-color-40);
+    border-bottom: 1px solid var(--text-color-40);
+    border-left: 1px solid var(--text-color-40);
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    max-height: 70vh;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px 0 0 10px;
+}
+
+.open-settings-sidebar {
+    transform: translateY(-50%) translateX(0%);
+}
+
+.settings-inner {
+    padding: max(32px, 2.22vw) max(26px, 1.8vw) max(35px, 2.43vw) max(26px, 1.8vw);
+    display: flex;
+    flex-direction: column;
+    gap: max(14px, calc(0.97vw * var(--scale)));
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: max(220px, 15vw);
+}
+
+.settings-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.settings-item label {
+    display: flex;
+    font-size: max(14px, calc(0.97vw * var(--scale)));
+    line-height: 130%;
+    text-transform: none;
+}
+
+.settings-item input,
+.settings-select {
+    height: max(26px, calc(1.81vw * var(--scale)));
+    padding: 2px max(10px, calc(0.69vw * var(--scale)));
+    border-radius: 0px !important;
+    border: 1px solid var(--text-color-40) !important;
+    cursor: pointer;
+}
+
+.settings-select,
+.settings-select option,
+.settings-input {
+    background-color: var(--background-color);
+    color: var(--text-color-70);
+    font-weight: 300 !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-transform: none !important;
+    line-height: 150%;
+    height: max(28px, calc(1.94vw * var(--scale))) !important;
+    font-size: max(14px, calc(0.97vw * var(--scale)));
+}
+
+.settings-select:focus {
+    border: 1px solid var(--text-color-70);
+    outline: none;
+}
+
+.color-picker-wrapper {
+    position: relative;
+}
+
+.colorpicker-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2;
+    background-color: var(--background-color);
+    border: 1px solid var(--text-color-40);
+}
+
+.colorpicker-overlay-text {
+    background-color: var(--text-color);
+}
+
+.colorpicker-overlay-text-overlay {
+    background-color: var(--overlay-text-color);
+}
+
+.colorpicker-overlay-button-text-overlay {
+    background-color: var(--overlay-button-text-color);
+}
+
+.settings-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.settings-link {
+    text-transform: none !important;
+    line-height: 150%;
+    font-size: max(14px, calc(0.97vw * var(--scale)));
+    text-decoration: underline;
+    font-weight: 500 !important;
+    color: var(--text-color);
+}
+
+.settings-item small {
+    opacity: 0.6;
+    font-size: max(12px, calc(0.83vw * var(--scale)));
+    margin-top: -2px;
+}
+
+.buy-button-wrapper {
+    margin-top: max(6px, 0.69vw);
+    display: flex;
+    width: 100%;
+}
+
+.buy-button {
+    width: 100%;
+    text-align: center;
+    font-size: max(14px, calc(0.97vw * var(--scale)));
+    padding-top: max(11px, calc(0.76vw * var(--scale)));
+    padding-bottom: max(11px, calc(0.76vw * var(--scale)));
+}
+
+#footer-normal-wrapper {
+    display: none;
+}
+
+@media screen and (max-width: 1080px) {
+    .demo-button {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .demo-button-inner {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .demo-buttons-container {
+        bottom: 18px;
+        right: 18px;
+        gap: 10px;
+    }  
+    
+    .demo-button {
+        width: 43px;
+        height: 43px;
+    }
+    
+    .demo-button-inner {
+        width: 21px;
+        height: 21px;
+    }
+}

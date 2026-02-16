@@ -1,0 +1,99 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import globalSettings from '@config/config.json.ts';
+import { getPostsByTag, getTags } from "@utils/utils.js";
+import { type Page } from "astro";
+import tagsSettings from '@config/tags.json.ts';
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+import PostCard from "@components/PostCard.astro";
+import Pagination from "@components/Pagination.astro";
+
+import "@styles/secondary-hero.css";
+
+export async function getStaticPaths({ paginate }) {
+  const tags = await getTags();
+
+  const paths = await Promise.all(
+    tags.map(async ({ original, slug }) => {
+      const { posts } = await getPostsByTag({ tag: original });
+
+      const paginatedPaths = paginate(posts, {
+        params: { 
+          tag: slug
+        },
+        props: {
+          title: original
+        },
+        pageSize: globalSettings.pagination_posts_number,
+      });
+
+      return paginatedPaths;
+    })
+  );
+
+  return paths.flat();
+}
+
+const { page, title } = Astro.props as { page: Page, title: string };
+const { tag } = Astro.params as { tag: string };
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+
+const tagData = tagsSettings.find((t) => t.slug === tag);
+const description = tagData ? tagData.description : null;
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title={title} description={description}>
+  <main data-accent-navigation="true">
+      <section class="secondary-hero">
+          <div class="wide-container">         
+              <div class="secondary-hero-content">
+                  <div class="secondary-heading-wrapper">
+                      <div class:list={['tags-wrapper dark', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          <div class="bracket-subtitle">
+                              <div class="medium-text left-bracket">{t.global.bracket}</div>
+                              <div class="bracket-button-text">
+                                  <div class="medium-text main">
+                                    {page.total === 0 ? t.global.pagination.no_posts : page.total === 1 ? t.global.pagination.one_post : `${page.total} ${t.global.pagination.multiple_posts}`}
+                                  </div>
+                              </div>
+                              <div class="medium-text right-bracket">{t.global.bracket}</div>                    
+                          </div>
+                      </div>
+
+                      <h1 class:list={['dark', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          {title}
+                      </h1>
+                  </div>
+
+                  <div class:list={['secondary-paragraph-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                      <p class="paragraph">
+                          {description}
+                      </p>
+                  </div>
+              </div>            
+          </div>
+      </section>
+      <section class="last-section">
+          <div class="wide-container">
+              <div id="pagination-grid" class:list={['grid pagination-grid grid-with-border', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>               
+                  {
+                      page.data.map((post) =>
+                          <PostCard t={t} post={post}/>
+                      )
+                  }              
+              </div> 
+
+              <Pagination t={t} posts_per_page={globalSettings.pagination_posts_number} total_posts={page.total} url={`/tags/${tag}/`}/>   
+          </div>
+      </section>
+  </main>
+
+  {globalSettings.footer_type == "Creative" ? (
+    <FooterCreative t={t} globalSettings={globalSettings}/>
+  ) : (
+    <FooterNormal t={t} globalSettings={globalSettings}/>
+  )}
+</BaseLayout>

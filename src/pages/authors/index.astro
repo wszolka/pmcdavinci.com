@@ -1,0 +1,66 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import globalSettings from '@config/config.json.ts';
+import { getAuthors, getUniqueAuthorsWithCount } from "@utils/utils.ts";
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+import AuthorCard from "@components/AuthorCard.astro";
+
+import "@styles/secondary-hero.css";
+
+const authors = await getAuthors();
+const unique_authors = getUniqueAuthorsWithCount(authors)
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title={t.authors_page.title_hero} description={t.authors_page.description_hero}>
+  <main data-accent-navigation="true">
+      <section class="secondary-hero">
+          <div class="wide-container">         
+              <div class="secondary-hero-content">
+                  <div class="secondary-heading-wrapper">
+                      <div class:list={['tags-wrapper dark', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          <div class="bracket-subtitle">
+                              <div class="medium-text left-bracket">{t.global.bracket}</div>
+                              <div class="bracket-button-text">
+                                  <div class="medium-text main">{unique_authors.length === 0 ? t.global.pagination.no_authors : unique_authors.length === 1 ? t.global.pagination.one_author : `${unique_authors.length} ${t.global.pagination.multiple_authors}`}</div>
+                              </div>
+                              <div class="medium-text right-bracket">{t.global.bracket}</div>                    
+                          </div>
+                      </div>
+
+                      <h1 class:list={['dark', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          {t.authors_page.title_hero}
+                      </h1>
+                  </div>
+
+                  <div class:list={['secondary-paragraph-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                      <p class="paragraph">
+                          {t.authors_page.description_hero}
+                      </p>
+                  </div>
+              </div>            
+          </div>
+      </section>
+
+      <section class="last-section">
+          <div class="wide-container">
+              <div class:list={['grid grid-with-border', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>  
+                 {
+                    unique_authors.map((author) =>
+                        <AuthorCard name={author.original} url={author.slug} post_count={author.count} t={t}/>
+                    )
+                  }                         
+              </div> 
+          </div>
+      </section>
+  </main>
+
+  {globalSettings.footer_type == "Creative" ? (
+    <FooterCreative t={t} globalSettings={globalSettings}/>
+  ) : (
+    <FooterNormal t={t} globalSettings={globalSettings}/>
+  )}
+</BaseLayout>

@@ -1,0 +1,108 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import globalSettings from '@config/config.json.ts';
+import { getSortedPosts } from "@utils/utils.js";
+import FeaturedPosts from "@components/FeaturedPosts.astro";
+import Slider from "@components/Slider.astro";
+import Circles from "@components/Circles.astro";
+import BigArrowIcon from "@assets/icons/BigArrowIcon.astro";
+import CreativePostCard from "@components/CreativePostCard.astro";
+import PostCard from "@components/PostCard.astro";
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+import Pagination from "@components/Pagination.astro";
+import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.astro";
+
+const { posts: featured_posts } = await getSortedPosts({featured: true});
+const { posts: slider_posts, total_posts: total_slider_posts } = await getSortedPosts({homepage_slider: true, limit: 8});
+const { posts, total_posts } = await getSortedPosts({limit: globalSettings.pagination_posts_number});
+const { posts: creative_posts } = await getSortedPosts({limit: 10});
+const first_post = posts[0];
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+---
+
+<BaseLayout globalSettings={globalSettings} t={t}>
+  <main>
+    <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={first_post}/>
+
+    <FeaturedPosts t={t} show_featured_post_preview={globalSettings.show_featured_post_preview} posts={featured_posts}/>
+
+    {total_slider_posts > 0 && (
+      <div class="subtitle-wrapper subtitle-with-margin no-top">
+        <h2 class="subtitle centered-text">{t.global.our_selection}</h2>
+      </div>
+    )}
+
+    <div class:list={['slider-with-circles', { 'no-slider': total_slider_posts == 0 }]}>
+      <div class="slider-with-circles-inner">    
+          {total_slider_posts > 0 && (
+            <Slider t={t} globalSettings={globalSettings} posts={slider_posts}/>
+          )}
+
+          <div class="circle-wrapper">
+              <div class="circle-outer">
+                  <div class="circle-animation">
+                      <Circles t={t}/>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    {globalSettings.homepage_post_card_style == "Creative" ? (
+      <section class="section section-relative creative-latest-posts-homepage section-bigger-bottom-padding">
+        <div class="wide-container">
+            <div class="subtitle-wrapper subtitle-with-margin z-5">
+                <h2 class="subtitle centered-text">{t.global.latest_posts}</h2>
+            </div>
+            <div class="latest-posts">
+                <div class="latest-posts-inner"> 
+                    {
+                      creative_posts.map((post) =>
+                        <CreativePostCard post={post}/>
+                      )
+                    }              
+                </div>
+                <div class="heading-1 creative-post-card-title dark dot">.</div>
+                <div class="heading-1 creative-post-card-title dark dot">.</div>
+                <div class="heading-1 creative-post-card-title dark dot">.</div>
+                <a href="/archive/" class="all-posts-link flex-center">
+                    <div class="heading-1 dark creative-post-card-title flex-center">{t.global.view_all_posts}</div>
+                    <div class="arrow-link-button flex-center">
+                        <div class="arrow-link-button-wrapper smaller flex-center">
+                            <BigArrowIcon />
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+      </section>
+    ) : (
+      <section class="section-padding-top section-relative last-section">
+        <div class="wide-container">
+            <div class="subtitle-wrapper subtitle-with-margin">
+                <h2 class="subtitle centered-text">{t.global.latest_posts}</h2>
+            </div>
+            <div class="latest-posts">
+                <div class="grid pagination-grid">               
+                    {
+                      posts.map((post) =>
+                        <PostCard t={t} post={post}/>
+                    )}        
+                </div>    
+
+                <Pagination t={t} posts_per_page={globalSettings.pagination_posts_number} total_posts={total_posts} text={t.global.pagination.view_all}/>            
+            </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  {globalSettings.footer_type == "Creative" ? (
+    <FooterCreative t={t} globalSettings={globalSettings}/>
+  ) : (
+    <FooterNormal t={t} globalSettings={globalSettings}/>
+  )}
+</BaseLayout>

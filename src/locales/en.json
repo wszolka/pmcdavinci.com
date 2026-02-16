@@ -1,0 +1,126 @@
+{
+    "global": {
+        "bracket": "[",
+        "read_story": "Read story",
+        "discover_more": "Discover more",
+        "featured_posts": "(Featured posts)",
+        "our_selection": "(Our selection)",
+        "our_readers": "What our readers say",
+        "latest_posts": "(Latest posts)",
+        "view_all_posts": "View all posts",
+        "by": "by",
+        "navbar": {
+            "subscribe": "Subscribe"
+        },
+        "footer": {
+            "navigation": "(Navigation)",
+            "subscribe": "Subscribe",
+            "credits": "All rights reserved.",
+            "footer_text": "Snook is a bold and creative theme designed for those who dare to stand out. With its striking design, Snook helps your blog break away from the ordinary.",
+            "form_placeholder": "Your email"
+        },
+        "pagination": {
+            "load_more": "Load more",
+            "view_all": "View all",
+            "no_posts": "No Posts",
+            "one_post": "1 Post",
+            "multiple_posts": "Posts",
+            "no_tags": "No Tags",
+            "one_tag": "1 Tag",
+            "multiple_tags": "Tags",
+            "no_authors": "No Authors",
+            "one_author": "1 Author",
+            "multiple_authors": "Authors",
+            "no_plans": "No Plans",
+            "one_plan": "1 Plan",
+            "multiple_plans": "Plans",
+            "no_questions": "No Questions",
+            "one_question": "1 Question",
+            "multiple_questions": "Questions"
+        },
+        "form": {
+            "email": "Your email",
+            "name": "Your name"
+        }
+    },
+    "post": {
+        "clipboard": "The link has been copied!",
+        "previous_post": "Previous Post",
+        "next_post": "Next Post"
+    },
+    "blog_page": {
+        "title_hero": "All Posts",
+        "description_hero": "Adipiscing neque risus quam iaculis. Nisl a imperdiet mauris mauris gravida sapien placerat morbi. At libero leo arcu mi commodo auctor."
+    },
+    "tags_page": {
+        "title_hero": "Tags",
+        "description_hero": "A laoreet maecenas gravida eu. Tellus in vel tristique enim turpis convallis. Pellentesque vestibulum netus sit in sit purus. Porttitor turpis cras eget ligula enim."
+    },
+    "authors_page": {
+        "title_hero": "Authors",
+        "description_hero": "A laoreet maecenas gravida eu. Tellus in vel tristique enim turpis convallis. Pellentesque vestibulum netus sit in sit purus. Porttitor turpis cras eget ligula enim."
+    },
+    "archive_page": {
+        "title_hero": "Archive",
+        "all_tags": "All Tags"
+    },
+    "membership_page": {
+        "save": "save up to",
+        "title_hero": "Membership",
+        "yearly": "Yearly",
+        "monthly": "Monthly",
+        "subscribe_now": "Subscribe now",
+        "month": "Month",
+        "year": "Year"
+    },
+    "faq_page": {
+        "title_hero": "Frequent Questions",
+        "description_hero": "A laoreet maecenas gravida eu. Tellus in vel tristique enim turpis convallis. Pellentesque vestibulum netus sit in sit purus. Porttitor turpis cras eget ligula enim."
+    },
+    "account_page": {
+        "paid_member": "Paid Member",
+        "title_hero": "Your Account",
+        "description_hero": "You currently have a paid membership, you can find more details in your account settings.",
+        "settings": "Account Settings",
+        "log_out": "Sign out",
+        "full_name_label": "Full Name",
+        "full_name_value": "John Doe",
+        "email_label": "Email",
+        "email_value": "mail@example.com",
+        "current_plan_label": "Current Plan",
+        "current_plan_value": "Premium",
+        "card_label": "Card",
+        "card_value": "**** **** **** 4242",
+        "billing_date_label": "Billing Date",
+        "billing_date_value": "June 23, 2025 "
+    },
+    "signin_page": {
+        "title_hero": "Sign In",
+        "description_hero": "Sign into your account again and see the entire library of members-only content & updates.",
+        "no_account": "Don't have an account yet?",
+        "sign_up": "Sign up"
+    },
+    "signup_page": {
+        "title_hero": "Sign Up",
+        "description_hero": "Unlock full access and see the entire library of members-only content & updates.",
+        "button_label": "Continue",
+        "has_account": "Already have an account?",
+        "sign_in": "Sign in"
+    },
+    "subscribe_page": {
+        "title_hero": "Subscribe",
+        "description_hero": "Unlock full access and see the entire library of members-only content & updates.",
+        "button_label": "Subscribe"
+    },
+    "contact_page": {
+        "lets_talk": "Let's talk",
+        "title_hero": "Contact Us",
+        "description_hero": "Odio ullamcorper netus eget gravida dolor vulputate dui mus. Amet cras diam mauris adipiscing sem quis morbi lectus. Dictum natoque tristique semper urna scelerisque faucibus.",
+        "frequently_asked_questions": "(Frequently asked questions)"
+    },
+    "error_404_page": {
+        "title_hero": "404",
+        "description_hero": "The page you are looking for doesn't exist or has been moved.",
+        "button_label": "Back to homepage" 
+    }
+}

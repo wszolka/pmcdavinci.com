@@ -1,0 +1,66 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import globalSettings from '@config/config.json.ts';
+import { getTags, getUniqueTagsWithCount } from "@utils/utils.ts";
+import TagCard from "@components/TagCard.astro";
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+
+import "@styles/secondary-hero.css";
+
+const tags = await getTags();
+const unique_tags = getUniqueTagsWithCount(tags)
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title={t.tags_page.title_hero} description={t.tags_page.description_hero}>
+  <main data-accent-navigation="true">
+      <section class="secondary-hero">
+          <div class="wide-container">         
+              <div class="secondary-hero-content">
+                  <div class="secondary-heading-wrapper">
+                      <div class:list={['tags-wrapper dark', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          <div class="bracket-subtitle">
+                              <div class="medium-text left-bracket">{t.global.bracket}</div>
+                              <div class="bracket-button-text">
+                                  <div class="medium-text main">{unique_tags.length === 0 ? t.global.pagination.no_tags : unique_tags.length === 1 ? t.global.pagination.one_tag : `${unique_tags.length} ${t.global.pagination.multiple_tags}`}</div>
+                              </div>
+                              <div class="medium-text right-bracket">{t.global.bracket}</div>                    
+                          </div>
+                      </div>
+
+                      <h1 class:list={['dark', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          {t.tags_page.title_hero}
+                      </h1>
+                  </div>
+
+                  <div class:list={['secondary-paragraph-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                      <p class="paragraph">
+                          {t.tags_page.description_hero}
+                      </p>
+                  </div>
+              </div>            
+          </div>
+      </section>
+
+      <section class="last-section">
+          <div class="wide-container">
+              <div class:list={['grid tags-grid grid-with-border', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>  
+                 {
+                    unique_tags.map((tag) =>
+                        <TagCard name={tag.original} url={tag.slug} post_count={tag.count} t={t}/>
+                    )
+                  }                         
+              </div> 
+          </div>
+      </section>
+  </main>
+
+  {globalSettings.footer_type == "Creative" ? (
+    <FooterCreative t={t} globalSettings={globalSettings}/>
+  ) : (
+    <FooterNormal t={t} globalSettings={globalSettings}/>
+  )}
+</BaseLayout>

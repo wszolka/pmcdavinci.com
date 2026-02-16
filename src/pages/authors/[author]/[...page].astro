@@ -1,0 +1,145 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import globalSettings from '@config/config.json.ts';
+import { getPostsByAuthor, getAuthors, getImage } from "@utils/utils.js";
+import { type Page } from "astro";
+import { Image } from "astro:assets";
+import authorSettings from '@config/authors.json.ts';
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+import PostCard from "@components/PostCard.astro";
+import Pagination from "@components/Pagination.astro";
+import Social from "@components/Social.astro";
+
+import "@styles/hero-section.css"
+import "@styles/post-card.css"
+
+export async function getStaticPaths({ paginate }) {
+  const authors = await getAuthors();
+
+  const paths = await Promise.all(
+  authors.map(async ({ original, slug }) => {
+      const { posts } = await getPostsByAuthor({ author: original });
+
+      const paginatedPaths = paginate(posts, {
+        params: { 
+          author: slug
+        },
+        props: {
+          title: original
+        },
+        pageSize: globalSettings.pagination_posts_number,
+      });
+
+      return paginatedPaths;
+    })
+  );
+
+  return paths.flat();
+}
+
+const { page, title } = Astro.props as { page: Page, title: string };
+const { author } = Astro.params as { author: string };
+
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+
+const authorData = authorSettings.find((t) => t.slug === author);
+
+const socials = authorData?.socials || null;
+const bio = authorData?.bio || null;
+const location = authorData?.location || null;
+
+const image_glob = import.meta.glob<{ default: string }>('@assets/images/author/*.{jpg,jpeg,png,webp,gif,svg}', { eager: true });
+const profile_image = getImage({glob: image_glob, folder_name: "author", image_name: author });
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title={title} description={bio} type="image" image={profile_image ? profile_image : globalSettings.site_meta_image_source}>
+    <main
+      class={!profile_image ? "hero-section-no-image" : ""}
+      data-accent-navigation={!profile_image ? "true" : ""}
+    >
+      <section class:list={['hero-section author-hero', { 'hero-center': globalSettings.content_position_on_author_hero == "Center" && profile_image }]}>
+          <div class="wide-container">
+              <div class="hero-content">
+                  <div class="hero-content-inner">
+                  <div class="hero-text-content">
+                      <div class:list={['tags-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          <div class="bracket-subtitle">
+                              <div class="medium-text left-bracket">{t.global.bracket}</div>
+                              <div class="bracket-button-text">
+                                  <div class="medium-text main">
+                                        {page.total === 0 ? t.global.pagination.no_posts : page.total === 1 ? t.global.pagination.one_post : `${page.total} ${t.global.pagination.multiple_posts}`}{location && (<>, {location}</>)}
+                                  </div>
+                              </div> 
+                              <div class="medium-text right-bracket">{t.global.bracket}</div>
+                          </div>
+                      </div>
+
+                      <div class="heading-1-and-bio">
+                          <div class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={globalSettings.content_length_on_background_media}>
+                              <h1>{title}</h1>
+                          </div>
+
+                          <div class:list={['post-summary-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                              <p class="paragraph overlay">{bio}</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class:list={['socials author-socials', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                      {socials &&
+                        socials.map((social) =>
+                            <Social social={social} />
+                        )
+                      }
+                  </div>
+              </div>
+          </div>
+
+          {profile_image && ( 
+              <div class:list={['background-image', { 'image-animation': globalSettings.use_page_load_animations }]}>                
+                <figure class="parallax-image">
+                    <Image 
+                        src={profile_image as any} 
+                        alt={title}
+                        loading="lazy" 
+                        format="webp"
+                        widths={[300, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4200]}
+                        sizes="100vw"
+                    />
+                </figure>
+                <div class="dark-overlay"></div>
+              </div>
+            )}  
+      </section>
+
+      <section class="section-relative last-section">
+          <div class="wide-container">
+              <div class="latest-posts author-posts section-padding-top">
+                  <div
+                    id="pagination-grid"
+                    class={`grid pagination-grid${
+                      author && !profile_image && globalSettings.use_page_load_animations ? ' ease-in-animation' : ''
+                    }`}
+                  >               
+                      {
+                        page.data.map((post) =>
+                          <PostCard t={t} post={post}/>
+                        )
+                      }        
+                  </div>    
+
+                  <Pagination t={t} posts_per_page={globalSettings.pagination_posts_number} total_posts={page.total} url={`/authors/${author}/`}/>          
+              </div>
+          </div>
+      </section>
+</main>
+
+  {globalSettings.footer_type == "Creative" ? (
+    <FooterCreative t={t} globalSettings={globalSettings}/>
+  ) : (
+    <FooterNormal t={t} globalSettings={globalSettings}/>
+  )}
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import globalSettings from '@config/config.json.ts';
+import BaseLayout from "@layouts/BaseLayout.astro";
+import FooterBottom from '@components/FooterBottom.astro';
+
+import "@styles/form-page.css"
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title={t.error_404_page.title_hero} description={t.error_404_page.description_hero}>
+    <main class="full-page" data-accent-navigation="true">
+      <section class="full-page-section">
+        <div class="wide-container form-page-wrapper">
+          <div class="form-page-content">
+            <h1 class:list={['', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                {t.error_404_page.title_hero}
+            </h1>
+
+            <div class:list={['form-page-paragraph', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                <p class="paragraph light">
+                    {t.error_404_page.description_hero}
+                </p>
+            </div>  
+
+            <div class:list={['form-container', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                <a class="button page-not-found-button" href="/">
+                  {t.error_404_page.button_label}
+                </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class:list={['wide-container footer-bottom-outer footer-bottom-dark', { 'opacity-animation': globalSettings.use_page_load_animations }]}>
+        <custom-footer data-is-creative="false">
+            <FooterBottom t={t} globalSettings={globalSettings}/>
+        </custom-footer>
+    </footer>
+</BaseLayout>
+
+<style>
+    .copyright-text-wrapper .paragraph.light, .copyright-text-wrapper .paragraph.light * {
+        color: var(--text-color) !important;
+    }
+
+    .form-page-paragraph {
+        max-width: max(350px, calc(24.31vw * var(--scale)))
+    }
+</style>
