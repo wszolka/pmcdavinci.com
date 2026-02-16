@@ -113,10 +113,10 @@
         "button_label": "Subscribe"
     },
     "contact_page": {
-        "lets_talk": "Let's talk",
-        "title_hero": "Contact Us",
-        "description_hero": "Odio ullamcorper netus eget gravida dolor vulputate dui mus. Amet cras diam mauris adipiscing sem quis morbi lectus. Dictum natoque tristique semper urna scelerisque faucibus.",
-        "frequently_asked_questions": "(Frequently asked questions)"
+        "lets_talk": "Let’s do something creative",
+        "title_hero": "Contact",
+        "description_hero": "",
+        "frequently_asked_questions": ""
     },
     "error_404_page": {
         "title_hero": "404",

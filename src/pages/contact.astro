@@ -1,0 +1,107 @@
+---
+import globalSettings from '@config/config.json.ts';
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getImage } from "@utils/utils.js";
+import { Image } from "astro:assets";
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+import contactSettings from '@config/contact.json.ts';
+
+import "@styles/hero-section.css"
+import "@styles/contact.css"
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+
+const image_glob = import.meta.glob<{ default: string }>('@assets/images/contact/*.{jpg,jpeg,png,webp,gif,svg}', { eager: true });
+const contact_image = getImage({glob: image_glob, folder_name: "contact", image_name: "contact" });
+
+const image_glob_2 = import.meta.glob<{ default: string }>('@assets/images/contact/*.{jpg,jpeg,png,webp,gif,svg}', { eager: true });
+const contact_image_2 = getImage({glob: image_glob_2, folder_name: "contact", image_name: "contact2" });
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title={t.contact_page.title_hero} description={t.contact_page.description_hero}>
+    <main
+      class={!contact_image ? "hero-section-no-image" : ""}
+      data-accent-navigation={!contact_image ? "true" : ""}
+    >
+      <section class:list={['hero-section author-hero', { 'hero-center': globalSettings.content_position_on_author_hero == "Center" && contact_image }]}>
+          <div class={contact_image ? "wide-container" : "narrow-container"}>
+              <div class="hero-content">
+                  <div class="hero-content-inner">
+                  <div class="hero-text-content">
+                      <div class:list={['tags-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                          <div class="bracket-subtitle">
+                              <div class="medium-text left-bracket">{t.global.bracket}</div>
+                              <div class="bracket-button-text">
+                                  <div class="medium-text main">
+                                      {t.contact_page.lets_talk}
+                                  </div>
+                              </div> 
+                              <div class="medium-text right-bracket">{t.global.bracket}</div>
+                          </div>
+                      </div>
+
+                      <div class="heading-1-and-bio">
+                          <div class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={globalSettings.content_length_on_background_media}>
+                              <h1>{t.contact_page.title_hero}</h1>
+                          </div>
+
+                          <div class:list={['post-summary-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                              <p class="paragraph overlay">{t.contact_page.description_hero}</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class:list={['socials author-socials', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
+                      {contactSettings.email &&
+                        <a href={`mailto:${contactSettings.email}`} class="social" aria-label="Email">
+                            <div class="social-inner">
+                              <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M4 20C3.45 20 2.97933 19.8043 2.588 19.413C2.19667 19.0217 2.00067 18.5507 2 18V6C2 5.45 2.196 4.97933 2.588 4.588C2.98 4.19667 3.45067 4.00067 4 4H20C20.55 4 21.021 4.196 21.413 4.588C21.805 4.98 22.0007 5.45067 22 6V18C22 18.55 21.8043 19.021 21.413 19.413C21.0217 19.805 20.5507 20.0007 20 20H4ZM12 13L4 8V18H20V8L12 13ZM12 11L20 6H4L12 11ZM4 8V6V18V8Z" fill="currentColor"/>
+                              </svg>
+                            </div>
+                        </a>
+                      }
+
+                      {contactSettings.phone_number &&
+                        <a href={`tel:${contactSettings.phone_number}`} class="social" aria-label="Phone number">
+                            <div class="social-inner">
+                              <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M15.3792 15.6405L15.8352 15.1875L14.7762 14.1235L14.3222 14.5765L15.3792 15.6405ZM17.3642 14.9975L19.2752 16.0365L19.9902 14.7185L18.0802 13.6805L17.3642 14.9975ZM19.6422 18.1005L18.2222 19.5135L19.2792 20.5765L20.6992 19.1645L19.6422 18.1005ZM17.3562 19.9675C15.9062 20.1035 12.1562 19.9825 8.09417 15.9445L7.03617 17.0075C11.4682 21.4145 15.6872 21.6305 17.4962 21.4615L17.3562 19.9675ZM8.09417 15.9445C4.22317 12.0945 3.58117 8.85747 3.50117 7.45247L2.00317 7.53747C2.10317 9.30547 2.89817 12.8935 7.03617 17.0075L8.09417 15.9445ZM9.46917 9.76447L9.75617 9.47847L8.70017 8.41547L8.41317 8.70047L9.46917 9.76447ZM9.98417 5.84347L8.72417 4.15947L7.52317 5.05947L8.78317 6.74247L9.98417 5.84347ZM4.48317 3.79247L2.91317 5.35247L3.97117 6.41647L5.54017 4.85647L4.48317 3.79247ZM8.94117 9.23247C8.41117 8.70047 8.41117 8.70047 8.41117 8.70247H8.40917L8.40617 8.70647C8.35865 8.75439 8.3161 8.80699 8.27917 8.86347C8.22517 8.94347 8.16617 9.04847 8.11617 9.18147C7.99445 9.5248 7.96412 9.89388 8.02817 10.2525C8.16217 11.1175 8.75817 12.2605 10.2842 13.7785L11.3422 12.7145C9.91317 11.2945 9.57317 10.4305 9.51017 10.0225C9.48017 9.82847 9.51117 9.73247 9.52017 9.71047C9.52617 9.69714 9.52617 9.69514 9.52017 9.70447C9.51126 9.71827 9.50122 9.73131 9.49017 9.74347L9.48017 9.75347L9.47017 9.76247L8.94117 9.23247ZM10.2842 13.7785C11.8112 15.2965 12.9602 15.8885 13.8262 16.0205C14.2692 16.0885 14.6262 16.0345 14.8972 15.9335C15.049 15.8779 15.1908 15.7983 15.3172 15.6975L15.3672 15.6525L15.3742 15.6465L15.3772 15.6435L15.3782 15.6415C15.3782 15.6415 15.3792 15.6405 14.8502 15.1085C14.3202 14.5765 14.3232 14.5755 14.3232 14.5755L14.3252 14.5735L14.3272 14.5715L14.3332 14.5665L14.3432 14.5565L14.3812 14.5265C14.3905 14.5205 14.3882 14.5211 14.3742 14.5285C14.3492 14.5375 14.2512 14.5685 14.0542 14.5385C13.6402 14.4745 12.7702 14.1345 11.3422 12.7145L10.2842 13.7785ZM8.72417 4.15847C7.70417 2.79847 5.70017 2.58247 4.48317 3.79247L5.54017 4.85647C6.07217 4.32747 7.01617 4.38247 7.52317 5.05947L8.72417 4.15847ZM3.50217 7.45347C3.48217 7.10747 3.64117 6.74547 3.97117 6.41747L2.91217 5.35347C2.37517 5.88747 1.95217 6.64347 2.00317 7.53747L3.50217 7.45347ZM18.2222 19.5135C17.9482 19.7875 17.6522 19.9415 17.3572 19.9685L17.4962 21.4615C18.2312 21.3925 18.8322 21.0225 19.2802 20.5775L18.2222 19.5135ZM9.75617 9.47847C10.7412 8.49947 10.8142 6.95247 9.98517 5.84447L8.78417 6.74347C9.18717 7.28247 9.12717 7.98947 8.69917 8.41647L9.75617 9.47847ZM19.2762 16.0375C20.0932 16.4815 20.2202 17.5275 19.6432 18.1015L20.7012 19.1645C22.0412 17.8315 21.6282 15.6085 19.9912 14.7195L19.2762 16.0375ZM15.8352 15.1885C16.2192 14.8065 16.8372 14.7125 17.3652 14.9985L18.0812 13.6815C16.9972 13.0915 15.6532 13.2545 14.7772 14.1245L15.8352 15.1885Z" fill="currentColor"/>
+                              </svg>
+                            </div>
+                        </a>
+                      }
+
+                      {contactSettings.address_url &&
+                        <a href={contactSettings.address_url} class="social" target="_blank" aria-label="Address">
+                            <div class="social-inner">
+                              <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M12 6.5C12.663 6.5 13.2989 6.76339 13.7678 7.23223C14.2366 7.70107 14.5 8.33696 14.5 9C14.5 9.3283 14.4353 9.65339 14.3097 9.95671C14.1841 10.26 13.9999 10.5356 13.7678 10.7678C13.5356 10.9999 13.26 11.1841 12.9567 11.3097C12.6534 11.4353 12.3283 11.5 12 11.5C11.337 11.5 10.7011 11.2366 10.2322 10.7678C9.76339 10.2989 9.5 9.66304 9.5 9C9.5 8.33696 9.76339 7.70107 10.2322 7.23223C10.7011 6.76339 11.337 6.5 12 6.5ZM12 2C13.8565 2 15.637 2.7375 16.9497 4.05025C18.2625 5.36301 19 7.14348 19 9C19 14.25 12 22 12 22C12 22 5 14.25 5 9C5 7.14348 5.7375 5.36301 7.05025 4.05025C8.36301 2.7375 10.1435 2 12 2ZM12 4C10.6739 4 9.40215 4.52678 8.46447 5.46447C7.52678 6.40215 7 7.67392 7 9C7 10 7 12 12 18.71C17 12 17 10 17 9C17 7.67392 16.4732 6.40215 15.5355 5.46447C14.5979 4.52678 13.3261 4 12 4Z" fill="currentColor"/>
+                              </svg>
+                            </div>
+                        </a>
+                      }
+                  </div>
+              </div>
+          </div>
+
+          {contact_image && ( 
+              <div class:list={['background-image', { 'image-animation': globalSettings.use_page_load_animations }]}>                
+                <figure class="parallax-image">
+                    <Image 
+                        src={contact_image as any} 
+                        alt={t.contact_page.title_hero}
+                        loading="lazy" 
+                        format="webp"
+                        widths={[300, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4200]}
+                        sizes="100vw"
+                    />
+                </figure>
+                <div class="dark-overlay"></div>
+              </div>
+            )}  
+      </section>
+</main>
+</BaseLayout>

@@ -13,10 +13,6 @@ const navbarSettings: Navbar[] = [
 		link: "#applied-innovation"
 	},
 	{
-		text: "Documentation",
-		link: "#documenation",
-	},
-	{
 		text: "International Work",
 		link: "#international-work",
 	},
