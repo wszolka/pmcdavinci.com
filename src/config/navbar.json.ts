@@ -14,7 +14,7 @@ const navbarSettings: Navbar[] = [
 	},
 	{
 		text: "International Work",
-		link: "#international-work",
+		link: "/#international-work",
 	},
 	{
 		text: "About",
