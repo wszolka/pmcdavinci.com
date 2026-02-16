@@ -13,14 +13,15 @@ const { globalSettings, t } = Astro.props;
     <div class="navbar">
       <div class="wide-container">
         <div class="navbar-inner">
-          <Logo globalSettings={globalSettings}/>
-
-          <button class="unstyled-button menu-button" aria-label="Menu button">
-            <div class="menu-line first-line"></div>
-            <div class="menu-line mobile-line"></div>
-            <div class="menu-line second-line"></div>
-          </button>
-
+          <div class="navbar-links-outer">
+            <div class="navbar-links-inner">
+              <ul class="nav">
+                <li class="nav">
+                  <a class="nav-link medium-text smaller" href="/" target="" rel="">PMC DAVINCI</a>
+                </li>
+              </ul>
+            </div>
+          </div>          
           <div class="navbar-links-outer">
             <div class="navbar-links-inner">
               <ul class="nav">
@@ -33,14 +34,6 @@ const { globalSettings, t } = Astro.props;
                             )
                         )
                     }
-              </ul>
-
-              <ul class="cta-navbar-links">
-                <li>
-                    <a href="/subscribe/" class="nav-link medium-text smaller last">
-                        {t.global.navbar.subscribe}                           
-                    </a>
-                </li>
               </ul>
             </div>
           </div>

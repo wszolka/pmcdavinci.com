@@ -1,8 +1,8 @@
 import type { GlobalSettingsProps } from "@src-types/types.ts";
 
 const globalSettings: GlobalSettingsProps = {
-    site_name: "Snook",
-    site_meta_title: "Snook",
+    site_name: "PMC",
+    site_meta_title: "PMC",
     site_meta_description: "Snook is a bold and creative Astro theme designed for those who dare to stand out. With its striking design, Snook helps you break away from the ordinary.",
     site_meta_image_source: "/images/kusa-projects-logo.jpg",
     twitter_username: "@Your_Username",
