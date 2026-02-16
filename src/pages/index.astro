@@ -7,7 +7,7 @@ import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.ast
 import InlinePost from "@components/InlinePost.astro";
 
 const applied_innovation_post = await getEntry("blog", "applied-innovation");
-const second_post = await getEntry("blog", "balancing-work-life");
+const organizations_rarely_lack_ideas_post = await getEntry("blog", "organizations-rarely-lack-ideas");
 
 const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
   .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
@@ -17,7 +17,7 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
   <main>  
     <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={applied_innovation_post} hide_post_links={true} content_length="Full Width"/>
 
-    <InlinePost post={second_post} />
+    <InlinePost post={organizations_rarely_lack_ideas_post} />
 
   </main>
 </BaseLayout>
