@@ -3,6 +3,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import globalSettings from '@config/config.json.ts';
 import { getEntry } from "astro:content";
 import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.astro";
+import ConstSlider from "@components/ConstSlider.astro";
 import { Image } from "astro:assets";
 import "@styles/post.css";
 import "@styles/post-content.css";
@@ -21,7 +22,7 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
     <article class="article" data-is-post="true" data-has-header="false">
       <div class="post-content narrow-container">
         <div class="post-content-inner-wrapper">
-          <div class="post-content-inner">
+          <div class="post-content-inner" style="border-bottom: none;">
             <br/>
             <br/>
 
@@ -53,21 +54,33 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
             <br/>
             <br/>
 
-            <div class="image-text-row">
-              <div class="image-side">
-                <Image src={sideImage} alt="Katarzyna Wszoła" format="jpg" widths={[200, 400, 600, 800]} sizes="(max-width: 768px) 100vw, 50vw" />
-              </div>
-              <div class="text-side">
-                <h2>Katarzyna Wszoła</h2>
-                <p>I bring international innovation practice into organizations and translate it into applied innovation - strengthening how they operate, adapt, and grow.
-                  My perspective comes from leading and implementing innovation from within organizations - staying close to operational reality rather than observing it from outside.
-                  An external innovation director bringing global perspective into operational systems.
-                  </p>
-              </div>
-            </div>  
+          </div>
+        </div>
+        </div>
+      </div>
 
-            <br/>
-            <br/>
+      <div class="post-content  wide-container">
+        <div class="post-content-inner-wrapper">
+          <div class="post-content-inner" style="border-bottom: none;">
+
+            <ConstSlider
+              image={sideImage}
+              imageAlt="Innovation"
+              titles={[
+                "APPLIED INNOVATION",
+                "CREATIVITY AS CAPABILITY",
+                "INNOVATION LEADERSHIP",
+              ]}
+              description="I bring international innovation practice into organizations and translate it into applied innovation - strengthening how they operate, adapt, and grow. My perspective comes from leading and implementing innovation from within organizations - staying close to operational reality rather than observing it from outside. An external innovation director bringing global perspective into operational systems."
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="post-content narrow-container">
+        <div class="post-content-inner-wrapper">
+          <div class="post-content-inner" style="border-bottom: none;">
+
             <br/>
             <br/>
 
@@ -109,40 +122,3 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
   </main>
 </BaseLayout>
 
-<style>
-  .image-text-section {
-    padding-top: max(40px, 2.8vw);
-    padding-bottom: max(40px, 2.8vw);
-  }
-
-  .image-text-row {
-    display: flex;
-    align-items: center;
-    gap: max(32px, 2.2vw);
-  }
-
-  .image-side {
-    flex: 1;
-  }
-
-  .image-side img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-  .text-side {
-    flex: 1;
-  }
-
-  .text-side h2 {
-    margin-bottom: max(16px, 1.1vw);
-  }
-
-  @media (max-width: 768px) {
-    .image-text-row {
-      flex-direction: column;
-    }
-  }
-</style>

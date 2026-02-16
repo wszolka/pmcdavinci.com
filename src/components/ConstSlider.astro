@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import "@styles/featured-posts.css";
+
+const {
+    image,
+    imageAlt = "",
+    titles = [],
+    description = ""
+} = Astro.props as {
+    image: ImageMetadata,
+    imageAlt?: string,
+    titles: string[],
+    description?: string
+};
+---
+
+<div class="section no-padding">
+    <div class="wide-container" style="display: flex; align-items: flex-start; gap: max(32px, 2.2vw); margin-top: max(54px, calc(3.75vw * var(--scale))); padding-bottom: max(147px, calc(10.21vw * var(--scale)));">
+        <div style="flex: 0 0 25%;">
+            <figure>
+                <Image
+                    class="card-image-inner"
+                    src={image}
+                    alt={imageAlt}
+                    loading="lazy"
+                    format="webp"
+                    widths={[300, 400, 600, 800, 1000, 1200, 1600, 2000, 2400]}
+                    sizes="(max-width: 479px) 100vw, 40vw"
+                />
+            </figure>
+        </div>
+        <div style="flex: 1;">
+            {titles.map((title) => (
+                <div class="featured-post-heading-wrapper" style="opacity: 1;">
+                    <div class="big-text featured-post-title" set:html={title} />
+                </div>
+            ))}
+            {description && (
+                <p class="paragraph" style="margin-top: max(16px, 1.1vw); font-size: max(22px, calc(1.53vw * var(--scale)));" set:html={description} />
+            )}
+        </div>
+    </div>
+</div>
