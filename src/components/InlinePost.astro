@@ -1,0 +1,25 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import globalSettings from '@config/config.json.ts';
+
+import "@styles/post.css";
+import "@styles/post-content.css";
+
+const { post } = Astro.props as { post: CollectionEntry<"blog"> };
+
+const { Content } = await render(post);
+---
+
+<article class="article" data-is-post="true" data-post-header-type="Background Media" data-has-featured-image="false" data-right-aligned-template="false" data-has-video="false" data-has-header="false">
+    <div class:list={{
+        "post-content": true,
+        "narrow-container": true,
+        "hidden-post-content": globalSettings.use_page_load_animations
+    }}>
+        <div class="post-content-inner-wrapper">
+            <div class="post-content-inner">
+                <Content />
+            </div>
+        </div>
+    </div>
+</article>

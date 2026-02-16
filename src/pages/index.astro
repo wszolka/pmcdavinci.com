@@ -3,20 +3,11 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import globalSettings from '@config/config.json.ts';
 import { getSortedPosts } from "@utils/utils.js";
 import { getEntry } from "astro:content";
-import Slider from "@components/Slider.astro";
-import Circles from "@components/Circles.astro";
-import BigArrowIcon from "@assets/icons/BigArrowIcon.astro";
-import CreativePostCard from "@components/CreativePostCard.astro";
-import PostCard from "@components/PostCard.astro";
-import FooterCreative from "@components/FooterCreative.astro";
-import FooterNormal from "@components/FooterNormal.astro";
-import Pagination from "@components/Pagination.astro";
 import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.astro";
+import InlinePost from "@components/InlinePost.astro";
 
 const applied_innovation_post = await getEntry("blog", "applied-innovation");
-const { posts: slider_posts, total_posts: total_slider_posts } = await getSortedPosts({homepage_slider: true, limit: 8});
-const { posts, total_posts } = await getSortedPosts({limit: globalSettings.pagination_posts_number});
-const { posts: creative_posts } = await getSortedPosts({limit: 10});
+const second_post = await getEntry("blog", "balancing-work-life");
 
 const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
   .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
@@ -25,6 +16,8 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
 <BaseLayout globalSettings={globalSettings} t={t}>
   <main>  
     <BackgroundMediaPostHeader globalSettings={globalSettings} t={t} post={applied_innovation_post} hide_post_links={true} content_length="Full Width"/>
+
+    <InlinePost post={second_post} />
 
   </main>
 </BaseLayout>

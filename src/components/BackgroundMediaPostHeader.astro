@@ -67,7 +67,7 @@ const feature_video = feature_video_item ? (feature_video_item[1] as any).defaul
 
                         <div class:list={['excerpt-and-authors', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
                             <div class="post-summary-wrapper">
-                                <p class="paragraph overlay">{post.data.excerpt}</p>
+                                <p class="paragraph overlay" set:html={post.data.excerpt} />
                             </div>
 
                             <PostAuthors post={post} minutes_read={minutes_read}/>
@@ -78,7 +78,7 @@ const feature_video = feature_video_item ? (feature_video_item[1] as any).defaul
                         </div>
 
                         <div class:list={['post-summary-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]}>
-                            <p class="paragraph overlay">{post.data.excerpt}</p>
+                            <p class="paragraph overlay" set:html={post.data.excerpt} />
                         </div>
                     ) : (
                         <a href={`/blog/${post.id}`} class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length={content_length}>
