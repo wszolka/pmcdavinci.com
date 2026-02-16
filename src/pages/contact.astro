@@ -9,6 +9,7 @@ import contactSettings from '@config/contact.json.ts';
 
 import "@styles/hero-section.css"
 import "@styles/contact.css"
+import "@styles/post.css"
 
 const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
   .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
@@ -103,5 +104,15 @@ const contact_image_2 = getImage({glob: image_glob_2, folder_name: "contact", im
               </div>
             )}  
       </section>
-</main>
+        <article class="article" data-is-post="true" >
+            <div class="post-content narrow-container">
+                <div class="post-content-inner-wrapper">
+                    <div class="post-content-inner">
+                        <h1>Contact</h1>
+                        <p><a href={`mailto:${contactSettings.email}`} aria-label="Email">{contactSettings.email}</a></p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
 </BaseLayout>

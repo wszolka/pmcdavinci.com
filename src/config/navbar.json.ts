@@ -26,7 +26,7 @@ const navbarSettings: Navbar[] = [
 	},
 	{
 		text: "Contact",
-		link: "#contact",
+		link: "/contact/",
 	},
 
 ]
