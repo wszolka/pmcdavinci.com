@@ -22,7 +22,7 @@ const navbarSettings: Navbar[] = [
 	},
 	{
 		text: "Why work together",
-		link: "#why-work-together",
+		link: "/#why-work-together",
 	},
 	{
 		text: "Contact",
