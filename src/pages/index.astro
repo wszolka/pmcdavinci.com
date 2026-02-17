@@ -3,7 +3,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import globalSettings from '@config/config.json.ts';
 import { getEntry } from "astro:content";
 import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.astro";
-import ConstSlider from "@components/ConstSlider.astro";
+import ConstFeaturedPosts from "@components/ConstFeaturedPosts.astro";
 import { Image } from "astro:assets";
 import "@styles/post.css";
 import "@styles/post-content.css";
@@ -63,7 +63,7 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
         <div class="post-content-inner-wrapper">
           <div class="post-content-inner" style="border-bottom: none;">
 
-            <ConstSlider
+            <ConstFeaturedPosts
               image={sideImage}
               imageAlt="Innovation"
               titles={[
@@ -73,6 +73,7 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
               ]}
               description="I bring international innovation practice into organizations and translate it into applied innovation - strengthening how they operate, adapt, and grow. My perspective comes from leading and implementing innovation from within organizations - staying close to operational reality rather than observing it from outside. An external innovation director bringing global perspective into operational systems."
             />
+
           </div>
         </div>
       </div>
