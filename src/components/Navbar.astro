@@ -13,15 +13,14 @@ const { globalSettings, t } = Astro.props;
     <div class="navbar">
       <div class="wide-container">
         <div class="navbar-inner">
-          <div class="navbar-links-outer">
-            <div class="navbar-links-inner">
-              <ul class="nav">
-                <li class="nav">
-                  <a class="nav-link medium-text smaller" href="/" target="" rel="">PMC DA VINCI</a>
-                </li>
-              </ul>
-            </div>
-          </div>          
+          <a href="/" class="nav-link medium-text smaller" style="text-decoration: none;">PMC DA VINCI</a>
+
+          <button class="unstyled-button menu-button" aria-label="Menu button">
+            <div class="menu-line first-line"></div>
+            <div class="menu-line mobile-line"></div>
+            <div class="menu-line second-line"></div>
+          </button>
+
           <div class="navbar-links-outer">
             <div class="navbar-links-inner">
               <ul class="nav">
