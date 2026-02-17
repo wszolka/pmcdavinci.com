@@ -1,0 +1,133 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import globalSettings from '@config/config.json.ts';
+import { Image } from "astro:assets";
+import FooterCreative from "@components/FooterCreative.astro";
+import FooterNormal from "@components/FooterNormal.astro";
+
+import "@styles/hero-section.css";
+import "@styles/post.css";
+import "@styles/post-content.css";
+
+// ---- Page parameters ----
+const title = "Applied Innovation";
+const excerpt = "";
+import featureImage from "@assets/images/blog/exploring-our-boundaries.webp";
+// -------------------------
+
+const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.json`)
+  .catch(() => import(/* @vite-ignore */ '@locales/en.json'));
+---
+
+<BaseLayout globalSettings={globalSettings} t={t} title={title} description={excerpt}>
+  <main>
+    <section class="background-media hero-section">
+      <div class="wide-container">
+        <div class="hero-content">
+          <div class="hero-content-inner">
+            <div class="hero-text-content">
+              <div class:list={['heading-1-wrapper', { 'ease-in-animation': globalSettings.use_page_load_animations }]} data-content-length="Full Width">
+                <h1 set:html={title} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class:list={['background-image', { 'image-animation': globalSettings.use_page_load_animations }]}>
+        <figure class="parallax-image">
+          <Image
+            src={featureImage}
+            alt={title}
+            loading="lazy"
+            format="webp"
+            widths={[300, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4200]}
+            sizes="100vw"
+          />
+        </figure>
+        <div class="dark-overlay"></div>
+      </div>
+    </section>
+
+    <article class="article" data-is-post="true" data-has-header="true">
+      <div class="post-content narrow-container">
+        <div class="post-content-inner-wrapper">
+          <div class="post-content-inner" style="border-bottom: none;">
+
+            <h2>Applied Innovation - What I Bring Into Organizations</h2>
+            <p>Applied Innovation introduces new perspectives, models, and practices - and makes them work within organizational reality.</p>
+            <p>Organizations naturally evolve around what they already know. Innovation begins when external experience expands what becomes possible, but creates value only when translated into how organizations actually operate.</p>
+            <p>My work brings international innovation practice into organizations and translates it into applied innovation - strengthening how they operate, adapt, and grow over time.</p>
+            <p>This happens through four interconnected dimensions.</p>
+
+            <h3>External Intelligence</h3>
+            <p>Drawing from international programmes, cross-industry collaboration, and innovation ecosystems, I introduce perspectives that extend beyond internal benchmarks and sector habits.</p>
+            <p>External perspective expands strategic choices and helps organizations recognize emerging opportunities earlier.</p>
+
+            <h3>Benchmark-Based Transformation</h3>
+            <p>Organizations rarely lack ambition - they lack reference points.</p>
+            <p>Connecting internal practices with global innovation approaches and evolving operating models provides orientation, enabling informed decisions rather than reactive change.</p>
+
+            <h3>Organizational Translation &amp; Operational Reality</h3>
+            <p>Innovation creates value only when it becomes operational.</p>
+            <p>New models and practices must be adapted to existing structures and decision processes. This requires organizational translation - aligning strategy with operations and connecting global insight with local context.</p>
+            <p>Facilitation here enables dialogue, shared understanding, and movement from alignment to action without disrupting performance.</p>
+
+            <h3>Capability That Signals Future Readiness</h3>
+            <p>Applied innovation strengthens how organizations learn, decide, and adapt.</p>
+            <p>Over time, innovation shifts from initiative to capability - embedded in systems, collaboration, and everyday decision-making - increasing organizational maturity, resilience, and long-term readiness.</p>
+
+            <h3>What Organizations Gain Through Applied Innovation</h3>
+            <p>Applied innovation expands how organizations see opportunities, make decisions, and operate over time.</p>
+            <p>Organizations typically experience:</p>
+            <ul>
+              <li><strong>Faster Translation from Idea to Execution</strong> — Innovation becomes part of everyday operations.</li>
+              <li><strong>Stronger Organizational Adaptability</strong> — Change becomes evolution rather than disruption.</li>
+              <li><strong>Leadership Confidence in Uncertainty</strong> — External perspective grounded in operational reality supports clearer decisions.</li>
+              <li><strong>Increased Organizational Maturity</strong> — Innovation becomes embedded capability strengthening future readiness.</li>
+              <li><strong>Greater Strategic Clarity</strong> — International benchmarks enable more intentional decision-making.</li>
+            </ul>
+
+            <br/>
+
+            <h2>Creativity as Capability</h2>
+            <p><strong>Beyond Traditional "Creative Roles"</strong></p>
+            <p>Applied innovation requires creativity to function as an organizational capability rather than an individual talent.</p>
+            <p>In many organizations, creative thinking is confined to specific teams or roles. Sustainable innovation emerges when creativity becomes accessible across functions and levels - embedded in everyday work.</p>
+            <p>This means enabling people to:</p>
+            <ul>
+              <li>question assumptions,</li>
+              <li>explore alternatives within structured environments,</li>
+              <li>connect perspectives across silos,</li>
+              <li>contribute ideas without disrupting operational stability.</li>
+            </ul>
+            <p>Through shared language, structured methods, and facilitation, creativity shifts from inspiration to practice - becoming part of how decisions are made and problems are solved.</p>
+
+            <br/>
+
+            <h2>Innovation Leadership</h2>
+            <p><strong>Navigating Uncertainty and Transformation</strong></p>
+            <p>Applied innovation depends on leadership capable of operating in uncertainty.</p>
+            <p>Innovation leadership is less about managing initiatives and more about enabling organizations to function effectively as conditions evolve.</p>
+            <p>It involves:</p>
+            <ul>
+              <li>balancing exploration with performance,</li>
+              <li>creating clarity without oversimplifying complexity,</li>
+              <li>supporting experimentation with accountability,</li>
+              <li>making decisions with incomplete information.</li>
+            </ul>
+            <p>Through external perspective and organizational translation, leadership teams align strategy with operational reality - allowing innovation to become part of everyday leadership practice.</p>
+            <p>Innovation leadership does not remove uncertainty.</p>
+            <p>It enables organizations to operate confidently within it.</p>
+
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  {globalSettings.footer_type == "Creative" ? (
+    <FooterCreative t={t} globalSettings={globalSettings}/>
+  ) : (
+    <FooterNormal t={t} globalSettings={globalSettings}/>
+  )}
+</BaseLayout>
