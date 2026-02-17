@@ -1,0 +1,117 @@
+---
+import CarretIcon from "@assets/icons/CarretIcon.astro";
+import { Image } from "astro:assets";
+
+import "@styles/slider-component.css";
+
+const {
+    slides
+} = Astro.props as {
+    slides: { title: string, subtitle?: string, image: ImageMetadata }[]
+};
+---
+
+<!-- Flickity styles -->
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+<link rel="stylesheet" href="https://unpkg.com/flickity-fade@1/flickity-fade.css">
+
+<section class="our-selection-section">
+    <slider-component class="our-selection-slider">
+        <div class="slider-navigation wide-container">
+            <div class="slide-number">
+                <span class="medium-text bigger-font">
+                    0
+                </span>
+                <div class="current-slide-number-inner">
+                    {
+                        slides.map((_, index) =>
+                            <span class="medium-text bigger-font">
+                                {index + 1}
+                            </span>
+                        )
+                    }
+                </div>
+            </div>
+            <div class="slider-navigation-separator">
+                <div class="medium-text">
+                    /
+                </div>
+            </div>
+            <div class="slider-navigation-total-slides">
+                <div class="medium-text bigger-font">
+                    0{slides.length}
+                </div>
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="unstyled-button slider-button flex-center"
+            name="previous"
+            aria-label="Previous slide"
+            aria-controls="slider"
+        >
+            <div class="slider-arrow-inner rotated flex-center">
+               <CarretIcon />
+            </div>
+        </button>
+
+        <button
+            type="button"
+            class="unstyled-button slider-button flex-center"
+            name="next"
+            aria-label="Next slide"
+            aria-controls="slider"
+        >
+            <div class="slider-arrow-inner flex-center">
+                <CarretIcon />
+            </div>
+        </button>
+
+        <div class="slider-wrapper">
+            {
+                slides.map((slide, index) =>
+                    <div
+                        class="slide background-media"
+                        role="group"
+                        aria-roledescription="Slide"
+                        aria-label={`${index + 1} of ${slides.length}`}
+                        data-slide-number={index + 1}
+                    >
+                        <div class="wide-container">
+                            <div class="hero-content">
+                                <div class="hero-content-inner">
+                                    <div class="hero-text-content">
+                                        <div class="heading-1-wrapper slide-ease-in-animation" data-content-length="Narrow">
+                                            <h1 set:html={slide.title} />
+                                        </div>
+
+                                        {slide.subtitle && (
+                                            <div class="post-summary-wrapper slide-ease-in-animation">
+                                                <p class="paragraph overlay" set:html={slide.subtitle} />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="background-image slide-image-animation">
+                            <figure class="parallax-image parallax-image-mobile">
+                                <Image
+                                    src={slide.image}
+                                    alt={slide.title}
+                                    loading="lazy"
+                                    format="webp"
+                                    widths={[300, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4200]}
+                                    sizes="100vw"
+                                />
+                            </figure>
+                            <div class="dark-overlay"></div>
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    </slider-component>
+</section>

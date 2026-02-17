@@ -4,10 +4,14 @@ import globalSettings from '@config/config.json.ts';
 import { getEntry } from "astro:content";
 import BackgroundMediaPostHeader from "@components/BackgroundMediaPostHeader.astro";
 import ConstFeaturedPosts from "@components/ConstFeaturedPosts.astro";
+import ConstSlider from "@components/ConstSlider.astro";
 import { Image } from "astro:assets";
 import "@styles/post.css";
 import "@styles/post-content.css";
 import sideImage from "@assets/images/kas.jpg";
+import sliderImage1 from "@assets/images/blog/increase-inner-happiness.webp";
+import sliderImage2 from "@assets/images/blog/exploring-creative-spirit.webp";
+import sliderImage3 from "@assets/images/blog/exploring-our-boundaries.webp";
 
 const header_post = await getEntry("blog", "header");
 
@@ -77,6 +81,14 @@ const t = await import(/* @vite-ignore */ `@locales/${globalSettings.language}.j
           </div>
         </div>
       </div>
+
+    <ConstSlider
+      slides={[
+        { title: "APPLIED INNOVATION", subtitle: "How innovation becomes operational reality embedded in systems, decisions, and execution.", image: sliderImage1 },
+        { title: "CREATIVITY AS CAPABILITY", subtitle: "Developing creativity as an organizational competence accessible beyond traditional “creative roles.”", image: sliderImage2 },
+        { title: "INNOVATION LEADERSHIP", subtitle: "Supporting leaders navigating uncertainty, transformation, and evolving operating environments.", image: sliderImage3 },
+      ]}
+    />
 
       <div class="post-content narrow-container">
         <div class="post-content-inner-wrapper">
